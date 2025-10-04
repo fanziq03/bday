@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Surprise for Aqilah! 🎉</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Fredoka+One&family=Bangers&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <audio id="bgMusic" loop><source src="assets/audio/background-music.mp3" type="audio/mpeg"></audio>
+    <audio id="voiceMessage"><source src="assets/audio/voice-message.mp3" type="audio/mpeg"></audio>
+    <audio id="popSound"><source src="assets/audio/pop-sound.mp3" type="audio/mpeg"></audio>
+    <audio id="fireworkLaunchSound"><source src="assets/audio/firework-launch.mp3" type="audio/mpeg"></audio>
+    <audio id="fireworkExplodeSound"><source src="assets/audio/firework-explode.mp3" type="audio/mpeg"></audio>
+
+
+    <!-- PAGE 1: Gift Box Only -->
+    <div id="page1" class="page active">
+        <div class="page-content">
+            <div class="gift-box-wrapper">
+                <div id="giftBox" class="gift-box">
+                    <div class="gift-lid">
+                        <div class="gift-bow"></div>
+                    </div>
+                    <div class="gift-base"></div>
+                </div>
+                <div class="click-counter"><span id="clickCount">0</span>/5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Birthday Reveal (FINAL DESIGN) -->
+    <div id="page2" class="page">
+        <div class="star-field">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
+        <canvas id="fireworksCanvas"></canvas>
+        <div class="landscape-silhouette"></div>
+
+        <div class="page-content">
+            <div id="birthdayCard" class="birthday-card">
+                <div class="birthday-card-front">
+                    <img src="assets/images/penguin-3.png" alt="A cute penguin holding a heart" class="card-penguin">
+                    <h1 class="card-title">A Special Surprise For You!</h1>
+                </div>
+                <div class="birthday-card-back">
+                    <h2 id="birthdayGreeting" class="birthday-greeting">Happy Birthday!</h2>
+                    <div class="balloons-static">
+                        <div class="balloon-static"></div>
+                        <div class="balloon-static"></div>
+                        <div class="balloon-static"></div>
+                    </div>
+                    <p class="birthday-message">Wishing you a day filled with joy, laughter, and everything you wished for!</p>
+                    <button id="nextPageBtn" class="next-page-btn">See My Message</button>
+                </div>
+            </div>
+            <div id="tapIndicator" class="tap-indicator">
+                Tap the Card
+            </div>
+        </div>
+    </div>
+
+
+    <!-- PAGE 3: Message Section -->
+    <div id="page3" class="page">
+        <div class="page3-background"></div>
+        <div class="page3-decorations">
+            <div class="balloon-container"></div>
+        </div>
+        <div class="message-wrapper">
+            <button id="backToPage2Btn" class="back-btn">← Back to Surprise</button>
+            <div class="message-container">
+                <div class="message-header">
+                    <h2 class="message-title">A Special Message for You, Qila</h2>
+                </div>
+                <div class="audio-controls">
+                    <button id="playVoiceBtn" class="btn btn-voice"><span id="voiceText">Play My Voice Message</span></button>
+                    <button id="musicToggleBtn" class="btn btn-music"><span id="musicText">Pause Music</span></button>
+                </div>
+                <div class="message-content">
+                    <p class="message-text">Dear Qila,...</p>
+                    <div class="message-signature">
+                        <p>All the best,</p>
+                        <p class="signature-name">[Your Name Here]</p>
+                        <div class="signature-penguin">
+                            <img src="assets/images/penguin-2.png" alt="Sleeping penguin">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
