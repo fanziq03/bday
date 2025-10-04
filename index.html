@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Surprise for Aqilah! 🎉</title>
+    <title>A Surprise for You!</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Fredoka+One&family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&family=Fredoka+One&family=Bangers&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     
@@ -21,80 +21,175 @@
     <audio id="fireworkLaunchSound"><source src="assets/audio/firework-launch.mp3" type="audio/mpeg"></audio>
     <audio id="fireworkExplodeSound"><source src="assets/audio/firework-explode.mp3" type="audio/mpeg"></audio>
 
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-    <!-- PAGE 1: Gift Box Only -->
     <div id="page1" class="page active">
+        <div class="page1-gradient-orb orb-1"></div>
+        <div class="page1-gradient-orb orb-2"></div>
+        <div class="page1-gradient-orb orb-3"></div>
+        
         <div class="page-content">
-            <div class="gift-box-wrapper">
-                <div id="giftBox" class="gift-box">
-                    <div class="gift-lid">
-                        <div class="gift-bow"></div>
+            <div class="intro-text">
+                <h1 class="intro-title">Something Special Awaits</h1>
+                <p class="intro-subtitle">Click the gift to unveil your surprise</p>
+            </div>
+            
+            <div class="gift-area">
+                <div class="gift-box-wrapper">
+                    <div class="gift-glow"></div>
+                    <div id="giftBox" class="gift-box">
+                        <div class="gift-sparkles">
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                            <span class="sparkle"></span>
+                        </div>
+                        <div class="gift-lid">
+                            <div class="gift-bow"></div>
+                        </div>
+                        <div class="gift-base">
+                            <div class="gift-ribbon-vertical"></div>
+                        </div>
                     </div>
-                    <div class="gift-base"></div>
                 </div>
-                <div class="click-counter"><span id="clickCount">0</span>/5</div>
+            </div>
+
+            <div class="click-section">
+                <div class="click-counter">
+                    <div class="counter-label">Clicks</div>
+                    <div class="counter-value">
+                        <span id="clickCount">0</span>
+                        <span class="counter-separator">/</span>
+                        <span class="counter-max">5</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: Birthday Reveal (FINAL DESIGN) -->
     <div id="page2" class="page">
-        <div class="star-field">
-            <div id="stars"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
-        </div>
+        <canvas id="starCanvas"></canvas>
         <canvas id="fireworksCanvas"></canvas>
-        <div class="landscape-silhouette"></div>
-
+        
         <div class="page-content">
             <div id="birthdayCard" class="birthday-card">
-                <div class="birthday-card-front">
-                    <img src="assets/images/penguin-3.png" alt="A cute penguin holding a heart" class="card-penguin">
-                    <h1 class="card-title">A Special Surprise For You!</h1>
-                </div>
-                <div class="birthday-card-back">
-                    <h2 id="birthdayGreeting" class="birthday-greeting">Happy Birthday!</h2>
-                    <div class="balloons-static">
-                        <div class="balloon-static"></div>
-                        <div class="balloon-static"></div>
-                        <div class="balloon-static"></div>
+                <div class="birthday-card-inner">
+                    <div class="birthday-card-front">
+                        <div class="card-decoration-top">
+                            <div class="decoration-star">★</div>
+                        </div>
+                        <img src="assets/images/penguin-3.png" alt="A cute penguin holding a heart" class="card-penguin">
+                        <div class="card-title-wrapper">
+                            <h1 class="card-title">A Special Surprise For You!</h1>
+                        </div>
+                        <div id="tapIndicator" class="tap-indicator">
+                            <span class="tap-text">Tap the Card</span>
+                        </div>
                     </div>
-                    <p class="birthday-message">Wishing you a day filled with joy, laughter, and everything you wished for!</p>
-                    <button id="nextPageBtn" class="next-page-btn">See My Message</button>
+                    
+                    <div class="birthday-card-back">
+                        <h2 id="birthdayGreeting" class="birthday-greeting">Happy Birthday!</h2>
+                        
+                        <div class="penguin-group">
+                            <div class="penguin-wrapper">
+                                <img src="assets/images/penguin-1.png" alt="Cheering Penguin" class="penguin-static">
+                                <div class="penguin-shadow"></div>
+                            </div>
+                            <div class="penguin-wrapper">
+                                <img src="assets/images/penguin-4.png" alt="Cheering Penguin" class="penguin-static">
+                                <div class="penguin-shadow"></div>
+                            </div>
+                            <div class="penguin-wrapper">
+                                <img src="assets/images/penguin-5.png" alt="Cheering Penguin" class="penguin-static">
+                                <div class="penguin-shadow"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="birthday-message">Wishing you a day filled with joy, laughter, and everything you wished for!</p>
+                        
+                        <div class="card-divider"></div>
+                        
+                        <button id="nextPageBtn" class="next-page-btn">
+                            <span class="btn-text">See My Message</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="tapIndicator" class="tap-indicator">
-                Tap the Card
             </div>
         </div>
     </div>
 
-
-    <!-- PAGE 3: Message Section -->
     <div id="page3" class="page">
+        <div id="balloonContainer" class="balloon-container"></div>
         <div class="page3-background"></div>
-        <div class="page3-decorations">
-            <div class="balloon-container"></div>
-        </div>
+        <div class="page3-gradient-overlay"></div>
+        
         <div class="message-wrapper">
-            <button id="backToPage2Btn" class="back-btn">← Back to Surprise</button>
+            <button id="backToPage2Btn" class="back-btn">
+                <span class="back-arrow">←</span>
+                <span>Back to Surprise</span>
+            </button>
+            
             <div class="message-container">
                 <div class="message-header">
+                    <div class="header-decoration">
+                        <div class="header-line"></div>
+                        <div class="header-icon">★</div>
+                        <div class="header-line"></div>
+                    </div>
                     <h2 class="message-title">A Special Message for You, Qila</h2>
+                    <div class="header-decoration">
+                        <div class="header-line"></div>
+                        <div class="header-icon">★</div>
+                        <div class="header-line"></div>
+                    </div>
                 </div>
+                
                 <div class="audio-controls">
-                    <button id="playVoiceBtn" class="btn btn-voice"><span id="voiceText">Play My Voice Message</span></button>
-                    <button id="musicToggleBtn" class="btn btn-music"><span id="musicText">Pause Music</span></button>
+                    <button id="playVoiceBtn" class="btn btn-voice">
+                        <span class="btn-icon">&#9658;</span>
+                        <span id="voiceText">Play My Voice Message</span>
+                    </button>
+                    <button id="musicToggleBtn" class="btn btn-music">
+                        <span class="btn-icon">&#9835;</span>
+                        <span id="musicText">Pause Music</span>
+                    </button>
                 </div>
+                
                 <div class="message-content">
-                    <p class="message-text">Dear Qila,...</p>
+                    <div class="message-quote-open">"</div>
+                    <p class="message-text">Dear Qila, on this special day, I want you to know how truly wonderful you are. Your kindness, your smile, and your presence bring so much joy to everyone around you. May this year bring you endless happiness, exciting adventures, and all the beautiful moments you deserve. Here's to celebrating you today and always!</p>
+                    <div class="message-quote-close">"</div>
+                    
+                    <div class="message-divider"></div>
+                    
                     <div class="message-signature">
-                        <p>All the best,</p>
-                        <p class="signature-name">[Your Name Here]</p>
+                        <p class="signature-label">All the best,</p>
+                        <p class="signature-name">Your Name Here</p>
                         <div class="signature-penguin">
                             <img src="assets/images/penguin-2.png" alt="Sleeping penguin">
                         </div>
+                    </div>
+                </div>
+                
+                <div class="message-footer">
+                    <div class="footer-decoration">
+                        <span class="footer-dot"></span>
+                        <span class="footer-dot"></span>
+                        <span class="footer-dot"></span>
                     </div>
                 </div>
             </div>
