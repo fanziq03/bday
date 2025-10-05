@@ -41,14 +41,15 @@ function setupStarCanvas() {
     starCanvas.width = window.innerWidth;
     starCanvas.height = window.innerHeight;
     stars = [];
-    const starCount = window.innerWidth < 768 ? 100 : 200;
+    const starCount = window.innerWidth < 768 ? 150 : 300;
     for (let i = 0; i < starCount; i++) {
         stars.push({
             x: Math.random() * starCanvas.width,
             y: Math.random() * starCanvas.height,
-            radius: Math.random() * 1.2 + 0.5,
-            alpha: Math.random(),
-            twinkle: Math.random() * 0.04 + 0.01
+            vy: Math.random() * 0.4 + 0.1,
+            radius: Math.random() * 1.5 + 0.5,
+            alpha: Math.random() * 0.5 + 0.5,
+            twinkle: Math.random() * 0.02
         });
     }
 }
@@ -56,10 +57,19 @@ function setupStarCanvas() {
 function drawStars() {
     s_ctx.clearRect(0, 0, starCanvas.width, starCanvas.height);
     stars.forEach(star => {
-        star.alpha += star.twinkle;
-        if (star.alpha > 1 || star.alpha < 0) {
+        star.y -= star.vy;
+        if (star.y < -star.radius) {
+            star.y = starCanvas.height + star.radius;
+            star.x = Math.random() * starCanvas.width;
+        }
+
+        if (Math.random() > 0.99) {
             star.twinkle *= -1;
         }
+        star.alpha += star.twinkle;
+        if (star.alpha > 1) star.alpha = 1;
+        if (star.alpha < 0.3) star.alpha = 0.3;
+
         s_ctx.beginPath();
         s_ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         s_ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
@@ -72,8 +82,15 @@ function stopStars() {
     cancelAnimationFrame(starAnimationId);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    addSparkleAnimation();
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && page3.classList.contains('active')) {
+        clearInterval(balloonInterval);
+        balloonInterval = null;
+    } else if (!document.hidden && page3.classList.contains('active')) {
+        if (!balloonInterval) {
+            createBalloons();
+        }
+    }
 });
 
 function addSparkleAnimation() {
@@ -95,9 +112,13 @@ function goToPage(targetPage) {
         }
         if (currentPage === page3) {
             clearInterval(balloonInterval);
+            balloonInterval = null;
             balloonContainer.innerHTML = '';
         }
     }
+    
+    window.scrollTo(0, 0);
+    document.body.style.overflow = targetPage === page3 ? 'auto' : 'hidden';
 
     targetPage.classList.add('active');
     
@@ -110,11 +131,8 @@ function goToPage(targetPage) {
         setupStarCanvas();
         drawStars();
     } else if (targetPage === page3) {
-        document.body.style.overflow = 'auto';
         createBalloons();
         animateMessageEntry();
-    } else {
-        document.body.style.overflow = 'hidden';
     }
 }
 
@@ -140,9 +158,7 @@ function handleGiftClick() {
         });
     }
     
-    if (clickCount >= maxClicks) {
-        openGift();
-    }
+    if (clickCount >= maxClicks) openGift();
 }
 
 function openGift() {
@@ -172,7 +188,7 @@ function animateGreetingText() {
         const span = document.createElement('span');
         span.className = 'char';
         span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.animationDelay = `${0.5 + index * 0.05}s`;
+        span.style.animationDelay = `${0.5 + index * 0.08}s`;
         birthdayGreeting.appendChild(span);
     });
 }
@@ -202,8 +218,7 @@ function handleCardClick() {
 }
 
 function animatePenguins() {
-    const penguins = document.querySelectorAll('.penguin-wrapper');
-    penguins.forEach((penguin, index) => {
+    document.querySelectorAll('.penguin-wrapper').forEach((penguin, index) => {
         penguin.style.animationDelay = `${1 + index * 0.2}s`;
         penguin.classList.add('enter');
     });
@@ -214,9 +229,7 @@ nextPageBtn.addEventListener('click', (e) => {
     goToPage(page3);
 });
 
-backToPage2Btn.addEventListener('click', () => {
-    goToPage(page2);
-});
+backToPage2Btn.addEventListener('click', () => goToPage(page2));
 
 function setupFireworksCanvas() {
     fireworksCanvas.width = window.innerWidth;
@@ -266,24 +279,19 @@ class Firework {
     }
     update() {
         this.y += this.vel.y;
-        if (this.y < this.targetY) {
-            this.explode();
-            this.done = true;
-        }
+        if (this.y < this.targetY) { this.explode(); this.done = true; }
     }
     draw() {
         f_ctx.beginPath(); f_ctx.moveTo(this.x, this.y); f_ctx.lineTo(this.x, this.y - 10);
         f_ctx.strokeStyle = `hsl(${this.hue}, 100%, 60%)`; f_ctx.lineWidth = 2; f_ctx.stroke();
     }
-    explode() {
-        for (let i = 0; i < 100; i++) particles.push(new Particle(this.x, this.y, this.hue));
-    }
+    explode() { for (let i = 0; i < 100; i++) particles.push(new Particle(this.x, this.y, this.hue)); }
 }
 
 class Particle {
     constructor(x, y, hue) {
         this.x = x; this.y = y; this.hue = hue + (Math.random() * 60 - 30);
-        const angle = Math.random() * Math.PI * 2; const speed = (Math.random() * 6 + 2);
+        const angle = Math.random() * Math.PI * 2, speed = (Math.random() * 6 + 2);
         this.vel = { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed };
         this.friction = 0.98; this.gravity = 0.08; this.alpha = 1;
         this.decay = Math.random() * 0.02 + 0.01; this.size = Math.random() * 2 + 1; this.done = false;
@@ -325,8 +333,7 @@ voiceMessage.addEventListener('ended', () => {
 function createBalloons() {
     clearInterval(balloonInterval);
     balloonInterval = setInterval(() => {
-        const balloon = createBalloon();
-        balloonContainer.appendChild(balloon);
+        balloonContainer.appendChild(createBalloon());
     }, 1500);
 }
 
@@ -334,17 +341,19 @@ function createBalloon() {
     const balloon = document.createElement('div');
     balloon.className = 'balloon';
     const colors = [
-        { main: 'linear-gradient(135deg, #FF9A8B, #FF6A88)', pop: '#FF6A88' },
-        { main: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', pop: '#a1c4fd' },
-        { main: 'linear-gradient(135deg, #f6d365, #fda085)', pop: '#f6d365' },
-        { main: 'linear-gradient(135deg, #84fab0, #8fd3f4)', pop: '#84fab0' }
+        { main: 'linear-gradient(135deg, #FF9A8B, #FF6A88)', pop: '#FF6A88', knot: '#C75369' },
+        { main: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', pop: '#a1c4fd', knot: '#89A9D1' },
+        { main: 'linear-gradient(135deg, #f6d365, #fda085)', pop: '#f6d365', knot: '#C49A4C' },
+        { main: 'linear-gradient(135deg, #84fab0, #8fd3f4)', pop: '#84fab0', knot: '#6FB496' }
     ];
     const colorSet = colors[Math.floor(Math.random() * colors.length)];
-    balloon.innerHTML = `<div class="balloon-body" style="background: ${colorSet.main};"></div><div class="balloon-tail"></div><div class="pop-text" style="color: ${colorSet.pop};">POP!</div>`;
-    const drift = Math.random() * 200 - 100;
-    balloon.style.setProperty('--balloon-drift', `${drift}px`);
-    balloon.style.left = `calc(50% + ${Math.random() * 40 - 20}vw)`;
+    balloon.style.setProperty('--balloon-color', colorSet.main);
+    balloon.style.setProperty('--balloon-knot-color', colorSet.knot);
+    balloon.innerHTML = `<div class="balloon-body"></div><div class="balloon-tail"></div><div class="pop-text" style="color: ${colorSet.pop};">POP!</div>`;
+    balloon.style.setProperty('--balloon-drift', `${Math.random() * 200 - 100}px`);
+    balloon.style.left = `${Math.random() * 90 + 5}%`;
     balloon.style.animationDuration = `${Math.random() * 8 + 12}s`;
+    
     balloon.addEventListener('click', () => {
         if (balloon.classList.contains('popped')) return;
         if (popSound) { popSound.currentTime = 0; popSound.volume = 0.4; popSound.play(); }
@@ -367,19 +376,19 @@ function startBackgroundMusic() {
 }
 
 function updateVoiceButtonUI(isPlaying) {
-    if (voiceText) voiceText.textContent = isPlaying ? 'Pause Voice' : 'Play Voice';
+    if (voiceText) voiceText.textContent = isPlaying ? 'Hentikan Suara' : 'Mainkan Suara';
     if (playVoiceBtn) playVoiceBtn.querySelector('.btn-icon').textContent = isPlaying ? '⏸' : '▶';
 }
 
 function updateMusicButtonUI(isPlaying) {
-    if (musicText) musicText.textContent = isPlaying ? 'Pause Music' : 'Play Music';
+    if (musicText) musicText.textContent = isPlaying ? 'Hentikan Muzik' : 'Mainkan Muzik';
     if (musicToggleBtn) musicToggleBtn.querySelector('.btn-icon').textContent = isPlaying ? '⏸' : '♫';
 }
 
 const style = document.createElement('style');
 style.textContent = `
     .char { display: inline-block; opacity: 0; animation: charFadeIn 0.5s ease forwards; }
-    @keyframes charFadeIn { from { opacity: 0; transform: translateY(20px) rotateX(90deg); } to { opacity: 1; transform: translateY(0) rotateX(0); } }
+    @keyframes charFadeIn { from { opacity: 0; transform: translateY(20px) rotate(15deg); } to { opacity: 1; transform: translateY(0) rotate(0); } }
     .penguin-wrapper { opacity: 0; transform: translateY(30px) scale(0); }
     .penguin-wrapper.enter { animation: penguinEntrance 0.6s ease forwards; }
     @keyframes penguinEntrance { to { opacity: 1; transform: translateY(0) scale(1); } }

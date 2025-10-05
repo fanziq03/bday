@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #FF6B81;
-    --secondary-color: #64b3f4;
+    --primary-color: #FF69B4;
+    --secondary-color: #FFB6D9;
     --background-start: #fde9ec;
     --background-end: #e6f0ff;
     --text-dark: #333;
@@ -35,7 +35,7 @@ body {
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
+    transition: opacity 0.5s ease-out, visibility 0.5s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,30 +71,6 @@ body {
     z-index: -1;
 }
 
-.particle {
-    position: absolute;
-    background: var(--primary-color);
-    border-radius: 50%;
-    opacity: 0.4;
-    animation: float 25s infinite ease-in-out;
-}
-
-@keyframes float {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-100vh) translateX(100px); opacity: 0.8; }
-    100% { transform: translateY(0) translateX(0); }
-}
-
-.particle:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-duration: 20s; animation-delay: 0s; }
-.particle:nth-child(2) { width: 15px; height: 15px; left: 25%; animation-duration: 30s; animation-delay: 5s; background: var(--secondary-color); }
-.particle:nth-child(3) { width: 8px; height: 8px; left: 40%; animation-duration: 18s; animation-delay: 2s; }
-.particle:nth-child(4) { width: 12px; height: 12px; left: 55%; animation-duration: 25s; animation-delay: 8s; background: #fecfef; }
-.particle:nth-child(5) { width: 18px; height: 18px; left: 70%; animation-duration: 22s; animation-delay: 3s; background: var(--secondary-color); }
-.particle:nth-child(6) { width: 9px; height: 9px; left: 85%; animation-duration: 35s; animation-delay: 1s; }
-.particle:nth-child(7) { width: 14px; height: 14px; left: 5%; animation-duration: 28s; animation-delay: 10s; background: #ffdfba; }
-.particle:nth-child(8) { width: 7px; height: 7px; left: 90%; animation-duration: 23s; animation-delay: 6s; }
-
-
 #page1 {
     background: linear-gradient(135deg, var(--background-start), var(--background-end));
 }
@@ -102,16 +78,6 @@ body {
 #page1 .page-content {
     justify-content: space-evenly;
 }
-
-.page1-gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
-}
-.orb-1 { width: 300px; height: 300px; background: rgba(255, 107, 129, 0.2); top: 10%; left: 10%; }
-.orb-2 { width: 250px; height: 250px; background: rgba(100, 179, 244, 0.2); bottom: 15%; right: 15%; }
-.orb-3 { width: 200px; height: 200px; background: rgba(255, 223, 186, 0.3); bottom: 40%; left: 20%; }
 
 .intro-text {
     animation: fadeInDown 1s ease-out;
@@ -150,24 +116,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.gift-glow {
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(255, 107, 129, 0.3), transparent 70%);
-    border-radius: 50%;
-    animation: pulseGlow 4s infinite ease-in-out;
-    pointer-events: none;
-}
-
-@keyframes pulseGlow {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
-}
-
 .gift-box {
     position: relative;
     cursor: pointer;
@@ -188,66 +136,104 @@ body {
     20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
+/* --- REKA BENTUK KOTak HADIAH YANG BARU & LEBIH CANTIK --- */
+
+/* --- REKA BENTUK KOTAK HADIAH BARU (MINIMALIS & COMEL) --- */
+
 .gift-base {
     width: 220px;
     height: 180px;
-    background: linear-gradient(135deg, var(--primary-color), #ee5a6f);
+    background: #FF73B9; /* Warna pink yang lebih solid dan ceria */
     position: relative;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(180, 80, 130, 0.25); /* Bayang-bayang yang lebih lembut */
 }
 
-.gift-ribbon-vertical {
+/* Reben yang lebih ringkas */
+.gift-ribbon-vertical,
+.gift-ribbon-horizontal {
     position: absolute;
-    width: 30px;
+    background: #FFE5EF; /* Warna pink pucat untuk reben */
+    box-shadow: inset 0 2px 2px rgba(0,0,0,0.05); /* Bayang-bayang dalaman yang halus */
+}
+
+/* Reben menegak */
+.gift-base .gift-ribbon-vertical {
+    width: 40px;
     height: 100%;
-    background: var(--secondary-color);
     left: 50%;
     transform: translateX(-50%);
-    opacity: 0.8;
+    z-index: 2;
 }
 
+/* Menambah bayang-bayang lembut di persilangan reben */
+.gift-base .gift-ribbon-vertical::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -4px;
+    right: -4px;
+    height: 6px;
+    background: rgba(0,0,0,0.08); /* Warna bayang-bayang */
+    transform: translateY(-50%);
+    filter: blur(3px); /* Efek kabur */
+    z-index: -1;
+}
+
+/* Reben melintang */
+.gift-base .gift-ribbon-horizontal {
+    width: 100%;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Penutup kotak */
 .gift-lid {
     width: 240px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), #ee5a6f);
+    height: 60px; /* Menjadikannya lebih nipis */
+    background: #FF73B9;
     position: absolute;
-    bottom: 160px;
+    bottom: 175px; /* Menyesuaikan kedudukan */
     left: -10px;
-    border-radius: 10px;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 -8px 25px rgba(180, 80, 130, 0.15);
     transition: all 0.5s ease-in-out;
     z-index: 10;
+    /* Menambah 'ketebalan' pada penutup */
+    border-bottom: 5px solid #E660A1; /* Warna pink yang lebih gelap */
 }
 
+/* Reben pada penutup */
+.gift-lid .gift-ribbon-vertical {
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    background: #FFE5EF;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Bow yang ringkas dan bulat */
 .gift-bow {
     width: 80px;
     height: 80px;
-    background: var(--secondary-color);
+    /* Gradien untuk efek 3D yang lembut pada bow */
+    background: radial-gradient(circle at 65% 35%, white, #FFCDE1 70%);
     position: absolute;
-    top: -40px;
+    top: -45px; /* Kedudukan bow */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    z-index: 11;
 }
 
-.gift-bow::before, .gift-bow::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 80px;
-    background: var(--secondary-color);
-    border-radius: 50px;
-}
+/* KITA PADAMKAN .gift-bow::before DAN .gift-bow::after UNTUK BUANG "EKOR" REBEN */
 
-.gift-bow::before {
-    transform: translateX(-25px) rotate(-45deg);
-}
-
-.gift-bow::after {
-    transform: translateX(25px) rotate(45deg);
-}
-
+/* Animasi buka kotak (kekal sama) */
 .gift-box.opened .gift-lid {
     transform: translateY(-150px) rotate(20deg);
     opacity: 0;
@@ -271,22 +257,9 @@ body {
     align-items: center;
 }
 
-.counter-label {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-weight: 600;
-}
-
-.counter-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.counter-separator, .counter-max {
-    font-size: 1.5rem;
-    color: var(--text-light);
-}
+.counter-label { font-size: 0.9rem; color: var(--text-light); font-weight: 600; }
+.counter-value { font-size: 2.5rem; font-weight: 700; color: var(--primary-color); }
+.counter-separator, .counter-max { font-size: 1.5rem; color: var(--text-light); }
 
 .progress-bar {
     width: 100%;
@@ -306,22 +279,23 @@ body {
     transition: width 0.3s ease-out;
 }
 
-#page2 {
-    background: #0f172a;
-}
+#page2 { background: linear-gradient(to bottom, #020617, #0f172a, #1e293b); }
 
-#starCanvas {
+#starCanvas, #fireworksCanvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
     z-index: 1;
 }
 
+#fireworksCanvas { z-index: 5; }
+
 .birthday-card {
-    width: clamp(340px, 90vw, 500px);
-    height: clamp(550px, 85vh, 680px);
+    width: clamp(340px, 90vw, 480px);
+    height: clamp(550px, 85vh, 650px);
     perspective: 1500px;
     position: relative;
     z-index: 10;
@@ -335,113 +309,103 @@ body {
     transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.birthday-card-inner.is-flipped {
-    transform: rotateY(180deg);
-}
+.birthday-card-inner.is-flipped { transform: rotateY(180deg); }
 
 .birthday-card-front, .birthday-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: white;
+    background: linear-gradient(135deg, #fff5f7 0%, #fff 50%, #ffe8f0 100%);
     border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
     padding: 30px;
 }
 
-.birthday-card-back {
-    transform: rotateY(180deg);
+.birthday-card-front { justify-content: space-evenly; }
+.birthday-card-back { 
+    justify-content: center; 
+    gap: 30px;
+    background: linear-gradient(135deg, #fef3f5 0%, #fff 30%, #ffe8f0 100%);
 }
+.birthday-card-back { transform: rotateY(180deg); }
 
-.card-decoration-top {
-    font-size: 1.5rem;
+.card-decoration-top { 
+    font-size: 1.5rem; 
     color: #ddd;
+    display: none;
 }
 
-.card-penguin {
-    max-width: 70%;
-    height: auto;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+.card-penguin { 
+    max-width: 70%; 
+    height: auto; 
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); 
+    animation: floatCardPenguin 4s ease-in-out infinite;
 }
 
-.card-title {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    color: var(--primary-color);
+@keyframes floatCardPenguin {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(-3deg); }
+    50% { transform: translateY(-25px) rotate(0deg); }
+    75% { transform: translateY(-15px) rotate(3deg); }
+}
+
+.card-title-wrapper { position: relative; overflow: hidden; }
+
+.card-title { 
+    font-family: 'Fredoka One', cursive; 
+    font-size: clamp(1.8rem, 5vw, 2.4rem); 
+    background: linear-gradient(90deg, #FF69B4, #FFB6D9, #FF69B4);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    to { background-position: 200% center; }
 }
 
 .birthday-greeting {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 6vw, 3rem);
+    font-size: clamp(2.2rem, 8vw, 2.8rem);
     color: var(--primary-color);
     font-weight: 700;
 }
 
-.penguin-group {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.penguin-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.penguin-group { display: flex; justify-content: center; gap: 25px; }
+.penguin-wrapper { display: flex; flex-direction: column; align-items: center; }
 
 .penguin-static { 
-    width: 55px; 
-    height: 55px; 
+    width: 90px; 
+    height: 90px; 
     animation: floatPenguin 3s infinite ease-in-out;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.25));
 }
 
-.penguin-static:nth-child(1) { animation-delay: 0s; }
-.penguin-static:nth-child(2) { animation-delay: 0.3s; }
-.penguin-static:nth-child(3) { animation-delay: 0.6s; }
-
-@keyframes floatPenguin {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
+@keyframes floatPenguin { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
 .penguin-shadow {
-    width: 40px;
-    height: 8px;
+    width: 60px;
+    height: 10px;
     background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3), transparent 70%);
     border-radius: 50%;
-    margin-top: 5px;
+    margin-top: 8px;
     animation: shadowPulse 3s infinite ease-in-out;
 }
 
-@keyframes shadowPulse {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(0.8); opacity: 0.2; }
-}
+@keyframes shadowPulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(0.8); opacity: 0.2; } }
 
-.birthday-message {
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    color: #555;
-    line-height: 1.8;
-    max-width: 85%;
-    font-weight: 400;
-}
-
-.card-divider {
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #FF6B81, transparent);
-    border-radius: 2px;
-}
+.birthday-message { font-size: clamp(1rem, 2.5vw, 1.15rem); color: #555; line-height: 1.8; max-width: 85%; font-weight: 400; }
+.card-divider { width: 80px; height: 3px; background: linear-gradient(90deg, transparent, #FF69B4, transparent); border-radius: 2px; }
 
 .next-page-btn {
-    background: linear-gradient(135deg, #FF6B81, #ee5a6f);
+    background: linear-gradient(135deg, #FF69B4, #FF85C1);
     color: white;
     border: none;
     padding: 15px 35px;
@@ -453,73 +417,31 @@ body {
     align-items: center;
     gap: 10px;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 5px 20px rgba(255, 107, 129, 0.4);
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4), 0 0 20px rgba(255, 105, 180, 0); }
+    50% { box-shadow: 0 8px 30px rgba(255, 105, 180, 0.6), 0 0 40px rgba(255, 105, 180, 0.4); }
 }
 
 .next-page-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 107, 129, 0.6);
+    box-shadow: 0 8px 30px rgba(255, 105, 180, 0.6), 0 0 30px rgba(255, 105, 180, 0.5);
 }
 
-.next-page-btn:active {
-    transform: translateY(-1px);
-}
+.btn-arrow { font-size: 1.3rem; transition: transform 0.3s ease; }
+.next-page-btn:hover .btn-arrow { transform: translateX(5px); }
 
-.btn-arrow {
-    font-size: 1.3rem;
-    transition: transform 0.3s ease;
-}
+.tap-indicator { opacity: 1; transition: opacity 0.5s ease; animation: bounceText 2s infinite ease-in-out; }
+.tap-indicator.hidden { opacity: 0; pointer-events: none; }
+@keyframes bounceText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.tap-text { color: rgba(0, 0, 0, 0.2); font-size: 1rem; font-weight: 600; }
 
-.next-page-btn:hover .btn-arrow {
-    transform: translateX(5px);
-}
+#page3 { background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%); position: relative; overflow-y: auto; }
 
-.tap-indicator {
-    opacity: 1;
-    transition: opacity 0.5s ease;
-    animation: bounceText 2s infinite ease-in-out;
-}
-
-.tap-indicator.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-@keyframes bounceText {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-.tap-text {
-    color: rgba(0, 0, 0, 0.2);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-#fireworksCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
-}
-
-#page3 {
-    background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
-    position: relative;
-    overflow-y: auto;
-}
-
-.page3-background, .page3-gradient-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
+.page3-background, .page3-gradient-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
 
 .message-wrapper {
     width: 100%;
@@ -554,19 +476,9 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.back-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-}
-
-.back-arrow {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.back-btn:hover .back-arrow {
-    transform: translateX(-3px);
-}
+.back-btn:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); }
+.back-arrow { font-size: 1.2rem; transition: transform 0.3s ease; }
+.back-btn:hover .back-arrow { transform: translateX(-3px); }
 
 .message-container {
     background: rgba(255, 255, 255, 0.95);
@@ -585,176 +497,40 @@ body {
 .header-decoration { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 15px 0; }
 .header-line { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--primary-color), transparent); max-width: 100px; }
 .header-icon { color: var(--primary-color); font-size: 1.2rem; }
-
-.message-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--primary-color);
-    text-align: center;
-    font-weight: 700;
-    line-height: 1.4;
-}
-
+.message-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2rem); color: var(--primary-color); text-align: center; font-weight: 700; line-height: 1.4; }
 .audio-controls { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
-
-.btn {
-    background: linear-gradient(135deg, var(--primary-color), #ee5a6f);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
-}
-
-.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4); }
-.btn:active { transform: translateY(0); }
+.btn { background: linear-gradient(135deg, var(--primary-color), #FF85C1); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4); }
 .btn-icon { font-size: 1.1rem; }
-.message-content { position: relative; padding: 20px; }
-.message-quote-open, .message-quote-close { font-family: 'Playfair Display', serif; font-size: 4rem; color: rgba(255, 107, 129, 0.2); line-height: 1; position: absolute; }
-.message-quote-open { top: -10px; left: 0; }
-.message-quote-close { bottom: 20px; right: 10px; }
 
-.message-text {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    color: #555;
-    line-height: 1.9;
-    text-align: center;
-    margin: 20px 0;
-    font-weight: 400;
-    position: relative;
-    z-index: 1;
-}
-
-.message-divider { width: 60px; height: 3px; background: linear-gradient(90deg, transparent, var(--primary-color), transparent); margin: 30px auto; border-radius: 2px; }
-.message-signature { text-align: center; margin-top: 30px; }
+.message-content { padding: 20px 0 0; }
+.message-text-wrapper { position: relative; padding: 0 40px; }
+.message-quote-open, .message-quote-close { font-family: 'Playfair Display', serif; font-size: 5rem; color: rgba(255, 105, 180, 0.5); line-height: 1; position: absolute; }
+.message-quote-open { top: -20px; left: -10px; }
+.message-quote-close { bottom: -20px; right: -10px; }
+.message-text { font-size: clamp(1rem, 2.5vw, 1.15rem); color: #555; line-height: 1.9; text-align: justify; font-weight: 400; }
+.message-signature { text-align: center; margin-top: 40px; }
 .signature-label { font-size: 0.95rem; color: #888; font-style: italic; margin-bottom: 5px; }
 .signature-name { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--primary-color); margin-bottom: 15px; }
 .signature-penguin { display: flex; justify-content: center; }
 .signature-penguin img { width: 60px; height: auto; animation: sleepyPenguin 3s infinite ease-in-out; }
+@keyframes sleepyPenguin { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
 
-@keyframes sleepyPenguin {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-}
-
-.message-footer { margin-top: 30px; }
-.footer-decoration { display: flex; justify-content: center; gap: 8px; }
-.footer-dot { width: 8px; height: 8px; background: var(--primary-color); border-radius: 50%; animation: dotPulse 1.5s infinite ease-in-out; }
-.footer-dot:nth-child(2) { animation-delay: 0.3s; }
-.footer-dot:nth-child(3) { animation-delay: 0.6s; }
-
-
-.balloon-container { 
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: hidden; 
-    pointer-events: none; 
-    z-index: 5;
-}
-.balloon { 
-    position: absolute; 
-    bottom: -150px; 
-    width: 80px; 
-    height: 100px; 
-    cursor: pointer; 
-    pointer-events: auto; 
-    animation: balloonRise linear forwards;
-}
-
-@keyframes balloonRise {
-    to { 
-        transform: translateY(-120vh) translateX(var(--balloon-drift, 0));
-    }
-}
-
-.balloon:hover { 
-    transform: scale(1.1); 
-}
-.balloon-body { 
-    width: 100%; 
-    height: 100%; 
-    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
-    position: relative; 
-    background: var(--balloon-color);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -10px -10px 20px rgba(0, 0, 0, 0.1); 
-}
-.balloon-body::before { 
-    content: ''; 
-    position: absolute; 
-    top: 10%; 
-    left: 15%; 
-    width: 20px; 
-    height: 35px; 
-    background: rgba(255, 255, 255, 0.3); 
-    border-radius: 50%;
-    transform: rotate(30deg);
-}
-.balloon-tail { 
-    width: 1px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform-origin: top center;
-    animation: swing 3s infinite ease-in-out;
-}
-.balloon-tail::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    background: inherit;
-    border-radius: 50%;
-    background: var(--balloon-knot-color);
-}
-
-@keyframes swing {
-    0%, 100% { transform: rotate(15deg); }
-    50% { transform: rotate(-15deg); }
-}
-
-.balloon.popped .balloon-body { 
-    animation: popBalloon 0.4s ease-out forwards; 
-}
-@keyframes popBalloon {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.3); opacity: 0.5; }
-    100% { transform: scale(0); opacity: 0; }
-}
-.pop-text { 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    font-family: 'Bangers', cursive; 
-    font-size: 2rem; 
-    font-weight: bold; 
-    opacity: 0; 
-    pointer-events: none; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
-}
-.balloon.popped .pop-text { 
-    animation: showPop 0.6s ease-out; 
-}
-@keyframes showPop {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-}
+.balloon-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 5; }
+.balloon { position: absolute; bottom: -150px; width: 80px; height: 100px; cursor: pointer; pointer-events: auto; animation: balloonRise linear forwards; }
+@keyframes balloonRise { to { transform: translateY(-120vh) translateX(var(--balloon-drift, 0)); } }
+.balloon:hover { transform: scale(1.1); }
+.balloon-body { width: 100%; height: 100%; border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%; position: relative; background: var(--balloon-color); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset -10px -10px 20px rgba(0, 0, 0, 0.1); }
+.balloon-body::before { content: ''; position: absolute; top: 10%; left: 15%; width: 20px; height: 35px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; transform: rotate(30deg); }
+.balloon-tail { width: 1px; height: 40px; background: rgba(255, 255, 255, 0.5); position: absolute; bottom: -40px; left: 50%; transform-origin: top center; animation: swing 3s infinite ease-in-out; transition: opacity 0.2s; }
+.balloon-tail::after { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: inherit; border-radius: 50%; background: var(--balloon-knot-color); }
+@keyframes swing { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
+.balloon.popped .balloon-body { animation: popBalloon 0.4s ease-out forwards; }
+.balloon.popped .balloon-tail { opacity: 0; }
+@keyframes popBalloon { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } 100% { transform: scale(0); opacity: 0; } }
+.pop-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bangers', cursive; font-size: 2rem; font-weight: bold; opacity: 0; pointer-events: none; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+.balloon.popped .pop-text { animation: showPop 0.6s ease-out; }
+@keyframes showPop { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } }
 
 @media (max-width: 768px) {
     .intro-title { font-size: 2rem; }
@@ -768,6 +544,8 @@ body {
     .message-container { padding: 30px 20px; }
     .audio-controls { flex-direction: column; width: 100%; }
     .btn { width: 100%; justify-content: center; }
+    .penguin-static { width: 75px; height: 75px; }
+    .penguin-shadow { width: 50px; }
 }
 
 @media (max-width: 480px) {
@@ -777,4 +555,5 @@ body {
     .counter-value { font-size: 2rem; }
     .birthday-greeting { font-size: 1.8rem; }
     .birthday-message { font-size: 0.9rem; }
+    .penguin-static { width: 65px; height: 65px; }
 }
