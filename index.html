@@ -16,7 +16,7 @@
 <body>
     
     <audio id="bgMusic" loop><source src="assets/audio/background-music.mp3" type="audio/mpeg"></audio>
-    <audio id="voiceMessage"><source src="assets/audio/voice-message.mp3" type="audio/mpeg"></audio>
+    <audio id="voiceMessage"><source src="assets/audio/voice-message.m4a" type="audio/mp4"></audio>
     <audio id="popSound"><source src="assets/audio/pop-sound.mp3" type="audio/mpeg"></audio>
     <audio id="fireworkLaunchSound"><source src="assets/audio/firework-launch.mp3" type="audio/mpeg"></audio>
     <audio id="fireworkExplodeSound"><source src="assets/audio/firework-explode.mp3" type="audio/mpeg"></audio>
@@ -40,7 +40,7 @@
         <div class="page-content">
             <div class="intro-text">
                 <h1 class="intro-title">Sesuatu yang Istimewa Menanti</h1>
-                <p class="intro-subtitle">Klik hadiah untuk mendedahkan kejutan anda</p>
+                <p class="intro-subtitle">Klik hadiah ini untuk kejutan!</p>
             </div>
             
             <div class="gift-area">
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         
-                        <p class="birthday-message">Semoga hari anda penuh dengan kegembiraan, tawa, dan semua yang kau impikan!</p>
+                        <p class="birthday-message">Semoga hari anda dipenuhi dengan kegembiraan sentiasa!</p>
                         
                         <div class="card-divider"></div>
                         
@@ -157,15 +157,34 @@
                     </div>
                 </div>
                 
-                <div class="audio-controls">
-                    <button id="playVoiceBtn" class="btn btn-voice">
-                        <span class="btn-icon">&#9658;</span>
-                        <span id="voiceText">Mainkan Suara</span>
-                    </button>
-                    <button id="musicToggleBtn" class="btn btn-music">
-                        <span class="btn-icon">&#9835;</span>
-                        <span id="musicText">Mainkan Muzik</span>
-                    </button>
+                <div class="audio-player-container">
+                    <div id="voicePlayer" class="voice-player">
+                        <div class="player-header">
+                            <span class="player-icon">🎤</span>
+                            <span class="player-title">Mesej Suara</span>
+                        </div>
+                        <div class="player-controls">
+                            <button id="voicePlayPauseBtn" class="play-pause-btn">
+                                <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <div class="progress-wrapper">
+                                <div id="voiceProgressContainer" class="progress-container">
+                                    <div id="voiceProgressFill" class="progress-fill-voice"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span id="currentTime">0:00</span> / <span id="totalDuration">0:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="music-control-container">
+                         <button id="musicToggleBtn" class="btn btn-music">
+                            <span id="musicIcon" class="btn-icon">♫</span>
+                            <span id="musicText">Mainkan Muzik</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="message-content">
@@ -173,12 +192,13 @@
                         <div class="message-quote-open">“</div>
                         <p class="message-text">
                             Assalamualaikum Aqilah,<br><br>
-                            Selamat hari lahir! Rasanya, bila Qila buka website ni, macam dah lewat beberapa hari. Tapi tak pe! Sebab kita nak raikan! Sebagai tanda ingatan, saya ada kirim hadiah comel kat Dr. Norulhidayah. Saya harap, Qila suka hadiah empuk tu. Nak bagi nama ke tak nanti?<br><br>
-                            Apapun, saya sebenarnya, sangat kagumi Qila. Kali pertama tengok Qila bentang subjek CSC660, dengan idea yang unik, bagi saya itu sangat interesting. Qila pun dapat dekan setiap semester. Jadi macam, power gila bila dapat tahu yang Qila dapat seimbangkan akademik dan kokurikulum. Semangat dan personaliti Qila pun tiptop pada saya.<br><br>
-                            Secara peribadinya, kenal dengan Qila bagi saya satu semangat yang luar biasa. Rasa semangat untuk jadi versi diri saya yang lebih baik daripada semalam. Qila buat saya sedar yang saya perlu improve diri, berjuang demi masa depan. Dan senang cerita, saya.. minat Qila.<br><br>
-                            Ini kali pertama saya buat sesuatu yang macam ni sebenarnya. Sorry sangat-sangat tau kalau cringe😭. Niat saya bukan nak ganggu fokus Qila terhadap impian dan pelajaran. Saya hormat perjalanan hidup Qila. Saya tak berniat nak jadi seperti lelaki lain yang hanya berkata-kata. Apa yang saya harapkan adalah satu perkongsian hidup yang halal suatu hari nanti, bila saya betul-betul bersedia dan stabil dari semua aspek. Bila masa itu tiba, dengan kehendak Allah, saya harap orang itu adalah Qila. Dah sebulan rasanya, setiap hari saya tak lupa sebut nama Qila dalam doa saya. Saya ada solat istikarah, tapi masih tiada apa-apa petunjuk.<br><br>
-                            Buat masa sekarang, saya bersyukur sebab kita berkawan. Saya harap saya boleh kenal Qila dengan lebih dalam. Saya malu sebenarnya nak tanya lebih-lebih. Saya ni pun tak pandai nak carry conversation dengan bagus. Macam.. tak nak la kan jadi sesi soal jawab pulak😭.<br><br>
-                            Ape pun, saya harap Qila dapat bagitahu la apa perasaan Qila tentang ni. Ambil je masa Qila. Apa-apa jawapan Qila, saya reda. Saya rasa panjang sangat ni. Mungkin kita boleh sambung nanti. Jaga diri baik-baik, sentiasa senyum, dan teruskan jadi orang yang baik. Hidup kita ni penuh dengan cabaran. Kalau ada hari Qila sedih atau overthinking, saya harap Qila sentiasa jumpa kekuatan untuk terus melangkah. Qila wanita yang hebat pada perspektif saya. Jangan lupa sertakan doa dalam usaha.
+                            Selamat hari lahir! Bila Qila bukak website ni, mungkin dah lewat beberapa hari. Tapi tak pe! Sebab kita nak raikan! Sebagai tanda ingatan, saya ada kirim hadiah comel dekat Dr. Norulhidayah. Saya harap, Qila suka la hadiah tu. Bagi la nama untuk dia nanti.<br><br>
+                            Apapun, saya sebenarnya, sangat kagumi Qila. Kali pertama saya tengok Qila bentang subjek CSC660, dengan idea yang unik, bagi saya itu sangat interesting. Nampak Qila macam orang yang bijak. Qila pun dekan setiap semester. Jadi macam, power gila la bila dapat tahu yang Qila dapat seimbangkan akademik dan kokurikulum. Semangat dan personaliti Qila pun bagi aura yang positif.<br><br>
+                            Jadi.. Macam.. Berkawan dengan Qila bagi saya satu semangat yang luar biasa. Rasa semangat untuk jadi versi diri saya yang lebih baik daripada semalam. Qila buat saya sedar yang saya perlu improve diri, berjuang demi masa depan. Dan senang cerita, saya.. minat Qila.<br><br>
+                            Ini kali pertama saya buat sesuatu yang macam ni sebenarnya. Jadi, minta maaf sangat-sangat kalau rasa kekok😭. Niat saya bukan nak ganggu fokus Qila. Qila pun ada impian dan masih belajar. Jadi, saya hormat perjalanan hidup Qila. Saya tak de niat nak jadi gangguan. Saya lihat Qila sebagai wanita yang excellent dari pelbagai aspek. Buat masa sekarang, saya bukan sesiapa dan saya tak de apa-apa. Andai kata ditakdirkan, saya harap saya dapat jumpa Qila pada versi saya yang lebih baik daripada sekarang. Apa yang saya harapkan adalah satu perkongsian hidup yang halal suatu hari nanti. Bila masa itu datang, dengan izin Allah, saya harap orang itu adalah Qila. Saya minta maaf, setiap hari saya doa, saya sebut nama Qila.<br><br>
+                            Buat masa sekarang, saya bersyukur sebab kita berkawan. Saya harap saya boleh kenal Qila dengan lebih dalam. Saya malu sebenarnya nak tanya lebih-lebih, apatah lagi tentang hal peribadi. Saya ni pun tak pandai nak berbual dengan wanita. Jadi.. Saya takut jadi macam sesi soal jawab pulak nanti😭. Tapi tu lah... Saya harap Qila sudi nak bagitahu apa perasaan Qila tentang ni.. Ambil je masa Qila. Walau apa pun jawapan Qila, saya reda.<br><br>
+                            Saya rasa macam dah panjang sangat. Jadi.. Mungkin kita boleh sambung nanti? Kalau Qila sudi.. Jadi.. Aaa.. Jaga diri baik-baik, sentiasa senyum, dan teruskan jadi orang yang baik. Hidup kita ni penuh dugaan. Jadi, kalau ada masa Qila sedih atau overthinking, saya harapkan yang.. Qila sentiasa jumpa kekuatan untuk bertenang dan terus melangkah ke hadapan. Qila wanita yang hebat.<br><br>
+                            Terima kasih.
                         </p>
                         <div class="message-quote-close">”</div>
                     </div>
